@@ -176,7 +176,7 @@ export default class TimelineDemo extends Component {
         const lightThemeColor = '#AAD9CD';
         const disabledColor = '#a6acb1';
         const black = '#20303c';
-        const white = '#ffffff';
+        const white = '#f1f5f6';
 
         return {
             // arrows
@@ -185,12 +185,12 @@ export default class TimelineDemo extends Component {
             // month
             monthTextColor: black,
             textMonthFontSize: 16,
-            textMonthFontFamily: 'sans-serif-light',
+            textMonthFontFamily: 'sans-serif',
             textMonthFontWeight: 'bold',
             // day names
             textSectionTitleColor: black,
             textDayHeaderFontSize: 12,
-            textDayHeaderFontFamily: 'sans-serif-light',
+            textDayHeaderFontFamily: 'sans-serif',
             textDayHeaderFontWeight: 'normal',
             // today
             todayBackgroundColor: lightThemeColor,
@@ -198,7 +198,7 @@ export default class TimelineDemo extends Component {
             // dates
             dayTextColor: themeColor,
             textDayFontSize: 12,
-            textDayFontFamily: 'sans-serif-light',
+            textDayFontFamily: 'sans-serif',
             textDayFontWeight: '500',
             textDayStyle: {marginTop: Platform.OS === 'android' ? 2 : 4},
             // selected date
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
     },
     item: {
         padding: 20,
-        backgroundColor: 'white',
+        backgroundColor: '#f1f5f6',
         borderBottomWidth: 1,
         borderBottomColor: '#e8ecf0',
         flexDirection: 'row'

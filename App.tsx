@@ -6,40 +6,34 @@ import Demo from "./Demo";
 import TimelineDemo from "./Timeline";
 import { Avatar } from 'react-native-image-avatars';
 import { NavigationBar } from 'navigationbar-react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import CardView from "./CardView";
 
 export default function App() {
+    const [displayView, setDisplayView] = React.useState("calender");
+
+    const getDisplayViewButtonStyles = (currentView, view) => {
+        const displayViewBackgroundColor = currentView === view ? "#75a0a5" : "#9ebcc0";
+        return StyleSheet.create({
+            borderShadow: {
+                borderRadius: 40,
+                width: 40,
+                height: 40,
+                backgroundColor: displayViewBackgroundColor, // #698396, #82B2B8
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginLeft: 7,
+                marginRight: 7,
+                shadowColor: '#000',
+                shadowOffset: {width: 0, height: 5},
+                shadowOpacity: 0.3,
+                shadowRadius: 7,
+                elevation: 10
+            }
+        });
+    }
 
     return (
-        // <ScrollView stickyHeaderIndices={[0]}
-        //             showsVerticalScrollIndicator={true}>
-        //     <View style={styles.headerBar}></View>
-        //     <View style={styles.userRow}>
-        //         <View style={styles.userImage}>
-        //             <Avatar
-        //                 type = 'text'
-        //                 text='Soumya Ranjan Swain'
-        //                 size="x-small"
-        //                 borderColor = "#f2f2f2"
-        //                 textBackgroundFill = '#fff'
-        //                 shadow
-        //             />
-        //         </View>
-        //         <View>
-        //             <Text style={{ fontSize: 16 }}>Soumya Ranjan Swain</Text>
-        //             <Text
-        //                 style={{
-        //                     color: 'gray',
-        //                     fontSize: 16,
-        //                 }}
-        //             >
-        //                 srswain2@gmail.com
-        //             </Text>
-        //         </View>
-        //     </View>
-        //     {/*<Demo weekView={false}/>*/}
-        //     <TimelineDemo/>
-        // </ScrollView>
         <View style={styles.container}>
             <StatusBar backgroundColor="#223F46" barStyle='default' />
             <View style={styles.headerBar}></View>
@@ -55,27 +49,28 @@ export default function App() {
                     />
                 </View>
                 <View>
-                    <Text style={{ fontSize: 16 }}>Soumya Ranjan Swain</Text>
+                    <Text style={{ fontSize: 16, fontFamily: 'sans-serif'}}>Soumya Ranjan Swain</Text>
                     <Text
                         style={{
                             color: 'gray',
                             fontSize: 16,
+                            fontFamily: 'sans-serif'
                         }}
                     >
                         srswain2@gmail.com
                     </Text>
                 </View>
                 <View style={styles.viewChange}>
-                    <TouchableOpacity onPress={()=> {console.log("hi1")}} >
-                        <Icon name="calendar" size={27} color="#223F46" style={styles.viewChangeIcon} />
+                    <TouchableOpacity onPress={()=> {setDisplayView('calender')}} style={getDisplayViewButtonStyles(displayView, 'calender').borderShadow}>
+                        <Icon name="calendar-weekend" size={20} color="#26474E"  />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=> {console.log("hi2")}} >
-                        <Icon name="list" size={29} color="#999" />
+                    <TouchableOpacity onPress={()=> {setDisplayView('list')}} style={getDisplayViewButtonStyles(displayView, 'list').borderShadow}>
+                        <Icon name="receipt" size={20} color="#26474E" />
                     </TouchableOpacity>
                 </View>
             </View>
             {/*<Demo weekView={false}/>*/}
-            <TimelineDemo/>
+            {displayView === 'calender' ? <TimelineDemo/> : <CardView/>}
         </View>
     );
 
@@ -110,7 +105,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#f1f5f6'
     },
     userRow: {
         justifyContent: 'center',
@@ -133,4 +128,19 @@ const styles = StyleSheet.create({
     userImage: {
         marginRight: 12,
     },
+    borderShadow: {
+        borderRadius: 40,
+        width: 40,
+        height: 40,
+        backgroundColor:'#75a0a5', // #698396, #82B2B8
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 7,
+        marginRight: 7,
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: 5},
+        shadowOpacity: 0.3,
+        shadowRadius: 7,
+        elevation: 10
+    }
 });
