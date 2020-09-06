@@ -14,10 +14,7 @@ import {
     CalendarProvider
 } from 'react-native-calendars';
 import moment from 'moment';
-import {
-    useFonts,
-    Inter_100Thin,
-} from '@expo-google-fonts/inter';
+import data from './assets/data/testData.json';
 
 const EVENTS = [
     {
@@ -128,9 +125,14 @@ const EVENTS = [
     }
 ];
 
-export default class TimelineDemo extends Component {
+export default class TimelineDemo extends Component<{eventDetailsDialog: any},{}> {
     state = {
-        currentDate: new Date()
+        currentDate: new Date(),
+        eventDetailsDialog: false
+    }
+
+    constructor(props) {
+        super(props);
     }
 
     onDateChanged = (date) => {
@@ -214,7 +216,25 @@ export default class TimelineDemo extends Component {
         };
     };
 
+    modifyData = () => {
+        const modData = [] as any;
+        data.map((event) => {
+            modData.push({
+                start: new Date(event.dateFrom).toString(),
+                end: new Date(event.dateTo).toString(),
+                originalStart: new Date(event.dateFrom).toString(),
+                originalEnd: new Date(event.dateTo).toString(),
+                title: event.title,
+                summary: event.link,
+                color: event.backgroundColor
+            })
+        });
+
+        return modData;
+    };
+
     render() {
+        const timelineEvents = this.modifyData();
         return (
             <CalendarProvider
                 // date={ITEMS[0].title}
@@ -243,8 +263,39 @@ export default class TimelineDemo extends Component {
                 />
                 <Timeline
                     format24h={true}
-                    eventTapped={e => console.log(e)}
-                    events={EVENTS.filter(event => moment(event.start).isSame(this.state.currentDate, 'day'))}
+                    eventTapped={e => {
+                        this.setState({eventDetailsDialog: true});
+                        console.log(this.state.eventDetailsDialog);
+                        this.props.eventDetailsDialog(e);
+                    }}
+                    events={timelineEvents.filter(event => {
+                        // moment(this.state.currentDate).isBetween(event.start, event.end, 'day')
+                        if (moment(this.state.currentDate).isSameOrAfter(event.start, 'day') && moment(this.state.currentDate).isSameOrBefore(event.end, 'day'))
+                        {
+                            if (moment(this.state.currentDate).isSame(event.start, 'day')) {
+                                if (!moment(this.state.currentDate).isSame(event.end, 'day')) {
+                                    event.start = moment(event.start).format("YYYY-MM-DD HH:mm:00");
+                                    event.end = new Date(this.state.currentDate).toISOString().substring(0, 10) + " 23:59:59";
+                                }
+                            }
+
+                            if (moment(this.state.currentDate).isSame(event.end, 'day')) {
+                                if (!moment(this.state.currentDate).isSame(event.start, 'day')) {
+                                    event.start = new Date(this.state.currentDate).toISOString().substring(0, 10) + " 00:00:00";
+                                    event.end = moment(event.end).format("YYYY-MM-DD HH:mm:00")
+                                }
+                            }
+
+                            if (moment(this.state.currentDate).isBetween(event.start, event.end, 'day')) {
+                                event.start = new Date(this.state.currentDate).toISOString().substring(0, 10) + " 00:00:00";
+                                event.end = new Date(this.state.currentDate).toISOString().substring(0, 10) + " 23:59:59";
+                            }
+                            return true;
+                        }
+                        return false;
+                    })}
+
+                    // moment(event.start).isSame(this.state.currentDate, 'day'))}
                     // scrollToFirst={true}
                     // start={0}
                     // end={24}

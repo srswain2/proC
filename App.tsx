@@ -8,9 +8,12 @@ import { Avatar } from 'react-native-image-avatars';
 import { NavigationBar } from 'navigationbar-react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CardView from "./CardView";
+import Dialog, { DialogTitle, DialogContent, DialogFooter, DialogButton, ScaleAnimation } from 'react-native-popup-dialog';
 
 export default function App() {
     const [displayView, setDisplayView] = React.useState("calender");
+    const [displayEventDetailsDialog, setDisplayEventDetailsDialog] = React.useState(false);
+    const [displayEventDetailsDialogContent, setDisplayEventDetailsDialogContent] = React.useState({title: '', originalStart: '', originalEnd: '', color: '', summary: ''});
 
     const getDisplayViewButtonStyles = (currentView, view) => {
         const displayViewBackgroundColor = currentView === view ? "#75a0a5" : "#9ebcc0";
@@ -31,6 +34,11 @@ export default function App() {
                 elevation: 10
             }
         });
+    }
+
+    const eventDetailsDialog = (event) => {
+        setDisplayEventDetailsDialogContent(event);
+        setDisplayEventDetailsDialog(true);
     }
 
     return (
@@ -69,8 +77,36 @@ export default function App() {
                     </TouchableOpacity>
                 </View>
             </View>
+            <Dialog
+                visible={displayEventDetailsDialog}
+                dialogTitle={<DialogTitle title={displayEventDetailsDialogContent.title} />}
+                onTouchOutside={() => {
+                    setDisplayEventDetailsDialog(false);
+                }}
+                dialogAnimation={new ScaleAnimation({
+                    initialValue: 0, // optional
+                    useNativeDriver: true, // optional
+                })}
+                footer={
+                    <DialogFooter>
+                        <DialogButton
+                            text="OK"
+                            onPress={() => setDisplayEventDetailsDialog(false)}
+                        />
+                    </DialogFooter>
+                }
+            >
+                <DialogContent style={{height: 200}}>
+                    <View style={{flex: 1, flexDirection: 'row', alignItems: "center", alignContent: "center"}}>
+                        <Image
+                            style={{ width: 100, height: 100, borderRadius: 15, alignSelf: "stretch"}}
+                            source={require('./assets/platforms/small/ls1.png')}
+                        />
+                    </View>
+                </DialogContent>
+            </Dialog>
             {/*<Demo weekView={false}/>*/}
-            {displayView === 'calender' ? <TimelineDemo/> : <CardView/>}
+            {displayView === 'calender' ? <TimelineDemo eventDetailsDialog={eventDetailsDialog}/> : <CardView/>}
         </View>
     );
 

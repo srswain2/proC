@@ -10,7 +10,7 @@ import {
 import {SegmentedControls} from 'react-native-radio-buttons';
 import { Card, ListItem, Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import data from './assets/data/testData.json';
 
 const DEFAULT_TAB_INDEX = 1;
 const DEFAULT_TAB_TITLE = "On Going";
@@ -33,58 +33,6 @@ export default class CardView extends Component<{}, {
     ComingUp = () => (
         <View style={[styles.scene, {backgroundColor: '#ff3bb7'}]}/>
     );
-
-    data = [
-        {
-            platform: "codechef",
-            platformName: "Codechef",
-            title: "September Challenge 2020",
-            dateFrom: "04 Sep 2020 15:00:00",
-            dateTo: "14 Sep 2020 15:00:00",
-            logo: "./assets/platforms/small/logo-small-1.png",
-            link: "https://www.codechef.com/SEPT20",
-            backgroundColor: "#C1E4E5"
-        },
-        {
-            platform: "codechef",
-            platformName: "Codechef",
-            title: "September Cook-Off 2020",
-            dateFrom: "20 Sep 2020 21:30:00",
-            dateTo: "21 Sep 2020 00:00:00",
-            logo: "./assets/platforms/small/logo-small-1.png",
-            link: "https://www.codechef.com/COOK122",
-            backgroundColor: "#D3EABA"
-        },
-        {
-            platform: "codechef",
-            platformName: "Codechef",
-            title: "September Cook-Off 2020",
-            dateFrom: "20 Sep 2020 21:30:00",
-            dateTo: "21 Sep 2020 00:00:00",
-            logo: "./assets/platforms/small/logo-small-1.png",
-            link: "https://www.codechef.com/COOK122",
-            backgroundColor: "#FBF0D6"
-        },
-        {
-            platform: "codechef",
-            platformName: "Codechef",
-            title: "September Cook-Off 2020",
-            dateFrom: "20 Sep 2020 21:30:00",
-            dateTo: "21 Sep 2020 00:00:00",
-            logo: "./assets/platforms/small/logo-small-1.png",
-            link: "https://www.codechef.com/COOK122",
-            backgroundColor: "#FDE2C6"
-        },
-        {
-            platform: "codechef",
-            platformName: "Codechef",
-            title: "September Cook-Off 2020",
-            dateFrom: "20 Sep 2020 21:30:00",
-            dateTo: "21 Sep 2020 00:00:00",
-            logo: "./assets/platforms/small/logo-small-1.png",
-            link: "https://www.codechef.com/COOK122",
-            backgroundColor: "#D3EEEF"
-        }];
 
     options = [
         "Past",
@@ -229,7 +177,7 @@ export default class CardView extends Component<{}, {
                         <ScrollView style={styles.slide1} contentContainerStyle={{
                             flexGrow: 1
                         }}>
-                            {this.data.map((contest) => {
+                            {data.map((contest) => {
                                 return this.loadCard(contest);
                             })}
 
@@ -243,7 +191,7 @@ export default class CardView extends Component<{}, {
                             flexGrow: 1,
                             backgroundColor: "#FFF"
                         }}>
-                            {this.data.map((contest) => {
+                            {data.map((contest) => {
                                 return this.loadCard(contest);
                             })}
 
@@ -257,7 +205,7 @@ export default class CardView extends Component<{}, {
                             flexGrow: 1,
                             backgroundColor: "#FFF"
                         }}>
-                            {this.data.map((contest) => {
+                            {data.map((contest) => {
                                 return this.loadCard(contest);
                             })}
 
