@@ -106,15 +106,15 @@ export default class CardView extends Component<{}, {
                             <View style={{flex: 1}}>
                                 <Text style={{color: "#555", fontSize: 18, fontFamily: "sans-serif-light", flex: 1, textAlign: 'center', textAlignVertical: "center"}}>START:</Text>
                                 <View style={{flex: 1}}>
-                                    <Text style={{color: "#000", fontSize: 15, fontFamily: "sans-serif-light", fontWeight: "bold", flex: 1, alignSelf: "stretch", textAlign: 'center'}}>4th Sep, 2020</Text>
-                                    <Text style={{color: "#000", fontSize: 15, fontFamily: "sans-serif-light", fontWeight: "bold", flex: 1, alignSelf: "stretch", textAlign: 'center'}}>15:00</Text>
+                                    <Text style={{color: "#000", fontSize: 15, fontFamily: "sans-serif-light", fontWeight: "bold", flex: 1, alignSelf: "stretch", textAlign: 'center'}}>{cardObject.dateFrom}</Text>
+                                    <Text style={{color: "#000", fontSize: 15, fontFamily: "sans-serif-light", fontWeight: "bold", flex: 1, alignSelf: "stretch", textAlign: 'center'}}>{cardObject.timeFrom}</Text>
                                 </View>
                             </View>
                             <View style={{flex: 1}}>
                                 <Text style={{color: "#555", fontSize: 18, fontFamily: "sans-serif-light", flex: 1,textAlign: 'center', textAlignVertical: "center"}}>END:</Text>
                                 <View>
-                                    <Text style={{color: "#000", fontSize: 15, fontFamily: "sans-serif-light", fontWeight: "bold", flex: 1, alignSelf: "stretch", textAlign: 'center'}}>14th Sep, 2020</Text>
-                                    <Text style={{color: "#000", fontSize: 15, fontFamily: "sans-serif-light", fontWeight: "bold", flex: 1, alignSelf: "stretch", textAlign: 'center'}}>21:30</Text>
+                                    <Text style={{color: "#000", fontSize: 15, fontFamily: "sans-serif-light", fontWeight: "bold", flex: 1, alignSelf: "stretch", textAlign: 'center'}}>{cardObject.dateTo}</Text>
+                                    <Text style={{color: "#000", fontSize: 15, fontFamily: "sans-serif-light", fontWeight: "bold", flex: 1, alignSelf: "stretch", textAlign: 'center'}}>{cardObject.timeTo}</Text>
                                 </View>
                             </View>
                         </View>

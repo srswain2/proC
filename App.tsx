@@ -1,19 +1,33 @@
 import React from 'react';
-import {Platform, StyleSheet, Text, View, Image, StatusBar, TouchableOpacity} from 'react-native';
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-import Calender from "./Calender";
-import Demo from "./Demo";
+import {Image, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import TimelineDemo from "./Timeline";
-import { Avatar } from 'react-native-image-avatars';
-import { NavigationBar } from 'navigationbar-react-native';
+import {Avatar} from 'react-native-image-avatars';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CardView from "./CardView";
-import Dialog, { DialogTitle, DialogContent, DialogFooter, DialogButton, ScaleAnimation } from 'react-native-popup-dialog';
+import Dialog, {
+    DialogButton,
+    DialogContent,
+    DialogFooter,
+    DialogTitle,
+    ScaleAnimation
+} from 'react-native-popup-dialog';
 
 export default function App() {
     const [displayView, setDisplayView] = React.useState("calender");
     const [displayEventDetailsDialog, setDisplayEventDetailsDialog] = React.useState(false);
-    const [displayEventDetailsDialogContent, setDisplayEventDetailsDialogContent] = React.useState({title: '', originalStart: '', originalEnd: '', color: '', summary: ''});
+    const [displayEventDetailsDialogContent, setDisplayEventDetailsDialogContent] =
+        React.useState(
+            {
+                title: '',
+                originalStart: '',
+                originalEnd: '',
+                dateFrom: '',
+                dateTo: '',
+                timeFrom: '',
+                timeTo: '',
+                color: '',
+                summary: ''
+            });
 
     const getDisplayViewButtonStyles = (currentView, view) => {
         const displayViewBackgroundColor = currentView === view ? "#75a0a5" : "#9ebcc0";
@@ -83,6 +97,10 @@ export default function App() {
                 onTouchOutside={() => {
                     setDisplayEventDetailsDialog(false);
                 }}
+                onHardwareBackPress={() => {
+                    setDisplayEventDetailsDialog(false);
+                    return true;
+                }}
                 dialogAnimation={new ScaleAnimation({
                     initialValue: 0, // optional
                     useNativeDriver: true, // optional
@@ -90,7 +108,13 @@ export default function App() {
                 footer={
                     <DialogFooter>
                         <DialogButton
-                            text="OK"
+                            textStyle={{fontSize: 14}}
+                            text="Set Remainder"
+                            onPress={() => setDisplayEventDetailsDialog(false)}
+                        />
+                        <DialogButton
+                            textStyle={{fontSize: 14, color: "#666"}}
+                            text="Dismiss"
                             onPress={() => setDisplayEventDetailsDialog(false)}
                         />
                     </DialogFooter>
@@ -98,10 +122,30 @@ export default function App() {
             >
                 <DialogContent style={{height: 200}}>
                     <View style={{flex: 1, flexDirection: 'row', alignItems: "center", alignContent: "center"}}>
+                        <View style={{flex: 1}}>
+                        </View>
                         <Image
-                            style={{ width: 100, height: 100, borderRadius: 15, alignSelf: "stretch"}}
+                            style={{ width: 80, height: 80, borderRadius: 15}}
                             source={require('./assets/platforms/small/ls1.png')}
                         />
+                        <View style={{flex: 1}}>
+                        </View>
+                    </View>
+                    <View style={{ flexDirection:'row', flex: 1}}>
+                        <View style={{flex: 1}}>
+                            <Text style={{color: "#555", fontSize: 18, fontFamily: "sans-serif-light", flex: 1, textAlign: 'center', textAlignVertical: "center"}}>START:</Text>
+                            <View style={{flex: 1}}>
+                                <Text style={{color: "#000", fontSize: 15, fontFamily: "sans-serif-light", fontWeight: "bold", flex: 1, alignSelf: "stretch", textAlign: 'center'}}>{displayEventDetailsDialogContent.dateFrom}</Text>
+                                <Text style={{color: "#000", fontSize: 15, fontFamily: "sans-serif-light", fontWeight: "bold", flex: 1, alignSelf: "stretch", textAlign: 'center'}}>{displayEventDetailsDialogContent.timeFrom}</Text>
+                            </View>
+                        </View>
+                        <View style={{flex: 1}}>
+                            <Text style={{color: "#555", fontSize: 18, fontFamily: "sans-serif-light", flex: 1,textAlign: 'center', textAlignVertical: "center"}}>END:</Text>
+                            <View style={{flex: 1}}>
+                                <Text style={{color: "#000", fontSize: 15, fontFamily: "sans-serif-light", fontWeight: "bold", flex: 1, alignSelf: "stretch", textAlign: 'center'}}>{displayEventDetailsDialogContent.dateTo}</Text>
+                                <Text style={{color: "#000", fontSize: 15, fontFamily: "sans-serif-light", fontWeight: "bold", flex: 1, alignSelf: "stretch", textAlign: 'center'}}>{displayEventDetailsDialogContent.timeTo}</Text>
+                            </View>
+                        </View>
                     </View>
                 </DialogContent>
             </Dialog>

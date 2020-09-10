@@ -220,10 +220,14 @@ export default class TimelineDemo extends Component<{eventDetailsDialog: any},{}
         const modData = [] as any;
         data.map((event) => {
             modData.push({
-                start: new Date(event.dateFrom).toString(),
-                end: new Date(event.dateTo).toString(),
-                originalStart: new Date(event.dateFrom).toString(),
-                originalEnd: new Date(event.dateTo).toString(),
+                start: new Date(event.originalDateFrom).toString(),
+                end: new Date(event.originalDateTo).toString(),
+                originalStart: new Date(event.originalDateFrom).toString(),
+                originalEnd: new Date(event.originalDateTo).toString(),
+                dateFrom: event.dateFrom,
+                dateTo: event.dateTo,
+                timeFrom: event.timeFrom,
+                timeTo: event.timeTo,
                 title: event.title,
                 summary: event.link,
                 color: event.backgroundColor
